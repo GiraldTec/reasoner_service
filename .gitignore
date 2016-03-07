@@ -1,1 +1,6 @@
 #gitignore
+*.json
+node_modules/*
+app.log
+procesoID
+
