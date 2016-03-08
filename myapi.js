@@ -47,6 +47,22 @@ app.get('/inputs', function (req, res) {
   res.status(200).send(inputs);
 }); // apt.get()
 
+// Express route for incoming requests for a list of all inputs
+app.get('/razonamientoP', function (req, res) {
+  // send an object as a JSON string
+  console.log('razonamientoP');
+  var r = razonamientoP();
+  res.status(200).send(r);
+}); // apt.get()
+
+// Express route for incoming requests for a list of all inputs
+app.get('/razonamientoE', function (req, res) {
+  // send an object as a JSON string
+  console.log('razonamientoE');
+  var r = razonamientoE();
+  res.status(200).send(r);
+}); // apt.get()
+
 // Express route for any other unrecognised incoming requests
 app.get('*', function (req, res) {
   res.status(404).send('Unrecognised API call');
