@@ -1,21 +1,38 @@
 <!-- web client for a simple server-side application to demonstrate running a node API Appserver on a Raspberry Pi to display I/O values in a web browser -->
  <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="taskDemo">
     <head>
     	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
         <meta charset="utf-8" />
         <title>My Raspbery Pi API server example</title>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        
-        <script src="myclient.js"></script>
-        <script src="prueba_node_r.js"></script>
-        <script src="example_node_r.js"></script>
+		
         <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
-	
+		
+        <script src="myclient.js"></script>
+		<script src="demo.js"></script>
+
 
     </head>
     <body>
         <H1 class="text-center">My Raspbery Pi API server example</H1>
         <div id="input"></div>
+		
+		<form name="taskForm" ng-controller="TaskController as taskCtrl" ng-submit="taskCtrl.addTask()">
+			<h4>Submit a rules task</h4>
+			<fieldset class="form-group">
+				<textarea ng-model="taskCtrl.task.rules" class="form-control" placeholder="Enter some rules following the format" title="Rules"></textarea>
+			</fieldset>
+			<fieldset class="form-group">
+				<textarea ng-model="taskCtrl.task.facts" class="form-control" placeholder="Enter some facts following the format" title="Facts"></textarea>
+			</fieldset>
+			<fieldset class="form-group">
+				<input type="submit" class="btn btn-primary pull-right" value="Submit task" />
+			</fieldset>
+		</form>
+		
+		<div id="output">
+			<h4 class="text-center">Output from rules task</h4>
+		</div>
     </body>
 </html>

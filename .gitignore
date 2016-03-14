@@ -3,4 +3,4 @@
 node_modules/*
 app.log
 procesoID
-
+npm-debug.log

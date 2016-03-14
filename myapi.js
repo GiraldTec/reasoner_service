@@ -21,6 +21,9 @@
 var http      = require('http');
 var express   = require('express');
 
+var prueba = require('./prueba_node_r');
+var example = require('./example_node_r');
+
 var app       = express();
 
 // dummy input port values for our example
@@ -50,17 +53,47 @@ app.get('/inputs', function (req, res) {
 // Express route for incoming requests for a list of all inputs
 app.get('/razonamientoP', function (req, res) {
   // send an object as a JSON string
-  console.log('razonamientoP');
-  var r = razonamientoP();
+  console.log(prueba);
+  var r = prueba.razonamientoP();
+  console.log('raxonado');
+
   res.status(200).send(r);
+}); // apt.get()
+
+app.get('/reasoner', function (req, res) {
+  // send an object as a JSON string
+  console.log('reasoner');
+  console.log(req.query);
+    
+  var ejemplo =  new example();
+  var ruleList = '{ "list":'+ req.query.rules + '}';
+  var fact = JSON.parse(req.query.facts);
+  
+  console.log('parseados');
+  
+  //console.log(ruleList);
+  console.log(fact);
+  
+  //ejemplo.setRules(req.query.rules);
+  ejemplo.setFacts(fact);
+  
+  ejemplo.razonamientoE(function(returnValor){
+	res.status(200).send(returnValor);
+  });
+  //console.log(r == undefined);
+  //res.status(200).send(r);
 }); // apt.get()
 
 // Express route for incoming requests for a list of all inputs
 app.get('/razonamientoE', function (req, res) {
   // send an object as a JSON string
   console.log('razonamientoE');
-  var r = razonamientoE();
-  res.status(200).send(r);
+  var ejemplo =  new example();
+  ejemplo.razonamientoE(function(returnValor){
+	res.status(200).send(returnValor);
+  });
+  //console.log(r == undefined);
+  //res.status(200).send(r);
 }); // apt.get()
 
 // Express route for any other unrecognised incoming requests
