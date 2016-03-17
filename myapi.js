@@ -18,11 +18,12 @@
  * (C) 2013 PINK PELICAN NZ LTD
  */
 
-var http      = require('http');
 var express   = require('express');
 
 var prueba = require('./prueba_node_r');
 var example = require('./example_node_r');
+
+var parser = require('./rules_to_prolog');
 
 var app       = express();
 
@@ -50,19 +51,9 @@ app.get('/inputs', function (req, res) {
   res.status(200).send(inputs);
 }); // apt.get()
 
-// Express route for incoming requests for a list of all inputs
-app.get('/razonamientoP', function (req, res) {
+app.get('/example', function (req, res) {
   // send an object as a JSON string
-  console.log(prueba);
-  var r = prueba.razonamientoP();
-  console.log('raxonado');
-
-  res.status(200).send(r);
-}); // apt.get()
-
-app.get('/reasoner', function (req, res) {
-  // send an object as a JSON string
-  console.log('reasoner');
+  console.log('example');
   console.log(req.query);
     
   var ejemplo =  new example();
@@ -83,6 +74,58 @@ app.get('/reasoner', function (req, res) {
   //console.log(r == undefined);
   //res.status(200).send(r);
 }); // apt.get()
+
+
+app.get('/prolog', function (req, res) {
+  // send an object as a JSON string
+  console.log('prolog');
+  
+	var exec = require('child_process').exec;
+
+	
+	exec("sh ./prolog_call.sh pl_rules/test.pl", 
+		function(error, stdout, stderr) { 
+		
+		var returnValor = {value: stdout};
+		console.log(returnValor);
+		res.status(200).send(returnValor);
+	});
+});
+
+app.get('/investigator', function (req, res) {
+  // send an object as a JSON string
+	console.log('investigator');
+	var http = require('http');
+
+	//The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
+	var options = {
+	  host: '192.168.2.237',
+	  port:'8080',
+	  path: '/temperature'
+	};
+
+	console.log('investigator2');
+	callback = function(response) {
+	  var str = '';
+
+	  //another chunk of data has been recieved, so append it to `str`
+	  response.on('data', function (chunk) {
+		  console.log('investigator6');
+		str += chunk;
+	  });
+
+	  //the whole response has been recieved, so we just print it out here
+	  response.on('end', function () {
+		  console.log('investigator5');
+		res.status(200).send(str);
+	  });
+	}
+	console.log('investigator3');
+	http.request(options, callback).end();
+ 
+	console.log('investigator4');
+
+}); 
 
 // Express route for incoming requests for a list of all inputs
 app.get('/razonamientoE', function (req, res) {

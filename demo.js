@@ -10,7 +10,7 @@
 			
 			// TODO send the http request
 			
-			var url = document.URL + 'reasoner';
+			var url = document.URL + 'prolog';//'reasoner';
 			$.getJSON(url, this.task, function (data) {
 				console.log('API response received');
 				$('#output').append('<p>output for request ' + data.value + '</p>');
