@@ -18,16 +18,26 @@ var parser = require('../rules_to_prolog');
 
 var app       = express();
 
-// dummy input port values for our example
-var inputs = [    { pin: '11', gpio: '17', value: 1 },
-                  { pin: '12', gpio: '18', value: 0 }
-                ];
+
+var reason = function(request){
+	console.log("RAZONANDOOOOO");
+};
 
 // ------------------------------------------------------------------------
 // configure Express to serve index.html and any other static pages stored 
-// in the home directory
+// in the parent directory
 //app.use(express.static(__dirname));
 app.use(express.static(__dirname+'/../'));
+
+// reasoning request
+app.get('/reasoner', function (req, res) {
+  console.log('Reasoning request');
+  response = function(answer){
+  	res.send('Processed');
+  }
+  reason(req,response);
+});
+
 
 // Express route for incoming requests for a single input
 app.get('/inputs/:id', function (req, res) {

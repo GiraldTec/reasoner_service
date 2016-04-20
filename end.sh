@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pidFile="procesoID"
+pidFile="reasonerPID"
 logFile="app.log"
 
 while IFS=' ' read pidREAD
