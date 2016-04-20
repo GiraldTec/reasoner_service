@@ -1,6 +1,6 @@
 #gitignore
 *.json
 node_modules/*
-app.log
+logs/*
 procesoID
 npm-debug.log

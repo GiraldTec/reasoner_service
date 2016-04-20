@@ -1,8 +1,5 @@
 /**
- * myapi.js
- * 
- * @version 1.1 - updated for Express 4.x : April 2015
- *
+ * reasoner.js
  * 
  * DESCRIPTION:
  * a "HELLO WORLD" server-side application to demonstrate running a node 
@@ -10,20 +7,14 @@
  * Uses the Express node packages. 
  * 
  * 
- * @throws none
- * @see nodejs.org
- * @see express.org
- * 
- * @author Robert Drummond
- * (C) 2013 PINK PELICAN NZ LTD
  */
 
 var express   = require('express');
 
-var prueba = require('./prueba_node_r');
-var example = require('./example_node_r');
+var prueba = require('../prueba_node_r');
+var example = require('../example_node_r');
 
-var parser = require('./rules_to_prolog');
+var parser = require('../rules_to_prolog');
 
 var app       = express();
 
@@ -35,7 +26,8 @@ var inputs = [    { pin: '11', gpio: '17', value: 1 },
 // ------------------------------------------------------------------------
 // configure Express to serve index.html and any other static pages stored 
 // in the home directory
-app.use(express.static(__dirname));
+//app.use(express.static(__dirname));
+app.use(express.static(__dirname+'/../'));
 
 // Express route for incoming requests for a single input
 app.get('/inputs/:id', function (req, res) {
@@ -47,7 +39,7 @@ app.get('/inputs/:id', function (req, res) {
 // Express route for incoming requests for a list of all inputs
 app.get('/inputs', function (req, res) {
   // send an object as a JSON string
-  console.log('all inputs');
+  console.log('all inputs prueba');
   res.status(200).send(inputs);
 }); // apt.get()
 
