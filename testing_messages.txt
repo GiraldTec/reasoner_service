@@ -1,0 +1,4 @@
+{ "language": "prolog" , "agentName" : "pepito" , "code" : "state(meeting):-\nnumber_people(X),\nX > 5,\nlight(on),!.\nstate(party):-\nnumber_people(X),\nX > 10,\nmusic(on),!.\nstate(empty1).\nstate(empty2).\nstate(empty3).\n\nnumber_people(6).\nlight(off).\nmusic(off).\n\nmain:-\nsetof((X,Y),(state(X),number_people(Y)),R),\nwrite(R)."}
+
+{ "language": "prolog" , "agentName" : "pepito" , "code" : "state(meeting):-\nnumber_people(X),\nX > 5,\nlight(on),!.\nstate(party):-\nnumber_people(X),\nX > 10,\nmusic(on),!.\nstate(empty1).\nstate(empty2).\nstate(empty3).\n\nnumber_people(6).\nlight(off).\nmusic(off).\n\nmain:-\nsetof((X,Y),(state(X),number_people(Y)),R),\nwrite(R)." , "resources" : [{"resource":"temperature", "location":"url1"}, {"resource":"people", "location":"url2"}, {"resource":"light", "location":"url3"}, {"resource":"music", "location":"url4"}]}
+

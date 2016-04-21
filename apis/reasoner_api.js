@@ -26,8 +26,10 @@ function prolog_reason(jsonR,callback){
   replace(/T/, '_').      // replace T with a space
   replace(/\..+/, '');    // delete the dot and everything after
 
-  //var savefile = "./persistance/files/prolog/"+jsonR.agentName+'_'+date+'.pl';
-  var savefile = "./persistance/files/prolog/"+jsonR.agentName+'.pl';
+  var savefile = "./persistance/files/prolog/"+jsonR.agentName+'_'+date+'.pl';
+  //var savefile = "./persistance/files/prolog/"+jsonR.agentName+'.pl';
+
+  console.log(jsonR);
 
   execute_prolog = function(){
     console.log('prolog');
@@ -40,6 +42,19 @@ function prolog_reason(jsonR,callback){
       });
   };
 
+  add_missing_resources = function(list, cback){
+    if (list == []){
+      console.log('Aniadidos todos');
+      cback();
+    }else if (list.length == 1){
+      console.log('Aniadido ::: '+JSON.stringify(list[0]));
+      cback();
+    }else {
+      console.log('Aniadido ::: '+JSON.stringify(list[0]));
+      add_missing_resources(list.slice(1),cback);
+    }
+  };
+
   var fs = require('fs');
 
   fs.writeFile( savefile , jsonR.code, function(err) {
@@ -48,7 +63,10 @@ function prolog_reason(jsonR,callback){
           callback('ERROR WRITING FILE');
       }
       console.log("The file was saved!");
-      execute_prolog();
+      //console.log('{ "list": '+JSON.stringify(jsonR.resources[0])+'}');
+      var list_res = jsonR.resources;
+      //console.log(list_res == []);
+      add_missing_resources(list_res, execute_prolog);
   });
 };
 
