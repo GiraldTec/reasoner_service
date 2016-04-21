@@ -21,14 +21,55 @@ var app       = express();
 var inputs = [    { pin: '11', gpio: '17', value: 1 },
                   { pin: '12', gpio: '18', value: 0 }
                 ];
+function prolog_reason(jsonR,callback){
+  var date = new Date().toISOString().
+  replace(/T/, '_').      // replace T with a space
+  replace(/\..+/, '');    // delete the dot and everything after
 
+  //var savefile = "./persistance/files/prolog/"+jsonR.agentName+'_'+date+'.pl';
+  var savefile = "./persistance/files/prolog/"+jsonR.agentName+'.pl';
+
+  execute_prolog = function(){
+    console.log('prolog');
+  
+    var exec = require('child_process').exec;
+  
+    exec("sh ./tools/prolog_call.sh "+ savefile,
+      function(error, stdout, stderr) { 
+        callback(stdout);
+      });
+  };
+
+  var fs = require('fs');
+
+  fs.writeFile( savefile , jsonR.code, function(err) {
+      if(err) {
+          console.log(err);
+          callback('ERROR WRITING FILE');
+      }
+      console.log("The file was saved!");
+      execute_prolog();
+  });
+};
 
 function reason (request,callback){
   console.log(request);
 	console.log('RAZONANDIOOO');
-  var r = JSON.stringify(inputs);
-  console.log(r);
-  callback({value: request });
+  var json_req = JSON.parse(request);
+  console.log(json_req);
+
+  response = function(answer){
+    callback({value: answer });
+  }
+  if (json_req.language == 'prolog') {
+    console.log('PROLOG');
+    prolog_reason(json_req,response);
+  }else if (json_req.language == 'node-rules') {
+    console.log('NODE-RULES');
+    prolog_reason(json_req,response);
+  }else{
+    callback({value: 'LANGUAGE NOT SPECIFIED'});
+  }
 };
 
 // ------------------------------------------------------------------------
@@ -41,6 +82,7 @@ app.use(express.static(__dirname+'/../'));
 // reasoning request
 app.get('/reasoner', function (req, res) {
   console.log('Reasoning request');
+  console.log(req.query);
   response = function(answer){
   	res.status(200).send(answer);
   }
@@ -56,11 +98,7 @@ app.get('/prolog_test', function (req, res) {
   
   exec("sh ./tools/prolog_call.sh ./pl_rules/test.pl", 
     function(error, stdout, stderr) { 
-    console.log('ERROR'+error);
-    console.log('STDOUPUT'+stdout);    
-    console.log('STDERROR'+stderr);
     var returnValor = {value: stdout};
-    console.log(returnValor);
     res.status(200).send(returnValor);
   });
 });
