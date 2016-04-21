@@ -85,7 +85,8 @@ app.get('/prolog_test', function (req, res) {
 	
 	exec("sh ./prolog_call.sh pl_rules/test.pl", 
 		function(error, stdout, stderr) { 
-		
+		console.log(error);
+		console.log(stderr);
 		var returnValor = {value: stdout};
 		console.log(returnValor);
 		res.status(200).send(returnValor);

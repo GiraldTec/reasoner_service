@@ -24,10 +24,11 @@ var inputs = [    { pin: '11', gpio: '17', value: 1 },
 
 
 function reason (request,callback){
+  console.log(request);
 	console.log('RAZONANDIOOO');
   var r = JSON.stringify(inputs);
   console.log(r);
-  callback({value: r });
+  callback({value: request });
 };
 
 // ------------------------------------------------------------------------
@@ -43,7 +44,25 @@ app.get('/reasoner', function (req, res) {
   response = function(answer){
   	res.status(200).send(answer);
   }
-  reason(req,response);
+  reason(req.query.message,response);
+});
+
+
+app.get('/prolog_test', function (req, res) {
+  // send an object as a JSON string
+  console.log('prolog');
+  
+  var exec = require('child_process').exec;
+  
+  exec("sh ./tools/prolog_call.sh ./pl_rules/test.pl", 
+    function(error, stdout, stderr) { 
+    console.log('ERROR'+error);
+    console.log('STDOUPUT'+stdout);    
+    console.log('STDERROR'+stderr);
+    var returnValor = {value: stdout};
+    console.log(returnValor);
+    res.status(200).send(returnValor);
+  });
 });
 
 // Express route for any other unrecognised incoming requests

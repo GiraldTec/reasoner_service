@@ -21,7 +21,7 @@
 		<form name="taskForm" ng-controller="TaskController as taskCtrl" ng-submit="taskCtrl.addTask()">
 			<h4>Submit the task message</h4>
 			<fieldset class="form-group">
-				<textarea ng-model="taskCtrl.task.rules" class="form-control" placeholder="Enter the full message" title="Rules"></textarea>
+				<textarea ng-model="taskCtrl.task.message" class="form-control" placeholder="Enter the full message" title="Message"></textarea>
 			</fieldset>
 			<fieldset class="form-group">
 				<input type="submit" class="btn btn-primary pull-right" value="Submit task" />
