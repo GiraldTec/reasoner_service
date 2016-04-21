@@ -18,9 +18,16 @@ var parser = require('../rules_to_prolog');
 
 var app       = express();
 
+var inputs = [    { pin: '11', gpio: '17', value: 1 },
+                  { pin: '12', gpio: '18', value: 0 }
+                ];
 
-function reason (request){
+
+function reason (request,callback){
 	console.log('RAZONANDIOOO');
+  var r = JSON.stringify(inputs);
+  console.log(r);
+  callback({value: r });
 };
 
 // ------------------------------------------------------------------------
@@ -29,11 +36,12 @@ function reason (request){
 //app.use(express.static(__dirname));
 app.use(express.static(__dirname+'/../'));
 
+
 // reasoning request
 app.get('/reasoner', function (req, res) {
   console.log('Reasoning request');
   response = function(answer){
-  	res.status(200).send('{answer : Processed}');
+  	res.status(200).send(answer);
   }
   reason(req,response);
 });

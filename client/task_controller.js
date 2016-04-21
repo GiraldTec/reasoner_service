@@ -7,12 +7,11 @@
 
 		this.addTask = function() {
 			
-			
-			// TODO send the http request
-			
-			var url = document.URL + 'prolog';//'reasoner';
+			var url = document.URL + 'reasoner';//'reasoner';
+			console.log(url);
 			$.getJSON(url, this.task, function (data) {
 				console.log('API response received');
+				console.log(data.value);
 				$('#output').append('<p>output for request ' + data.value + '</p>');
 			});
 

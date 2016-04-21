@@ -6,7 +6,7 @@
  * loads and executes this code
  */
 
-window.onload = function () {
+/*window.onload = function () {
   var url, i;
 
   for (i = 0; i < 2; i++) {
@@ -16,5 +16,5 @@ window.onload = function () {
       $('#input').append('<p>input gpio port ' + data.gpio + ' on pin ' + data.pin + ' has current value ' + data.value + '</p>');
     });
   }
-};
+};*/
 

@@ -10,7 +10,7 @@
         <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
 		
         <script src="client/myclient.js"></script>
-		<script src="demo.js"></script>
+				<script src="client/task_controller.js"></script>
 
 
     </head>
@@ -19,12 +19,9 @@
         <div id="input"></div>
 		
 		<form name="taskForm" ng-controller="TaskController as taskCtrl" ng-submit="taskCtrl.addTask()">
-			<h4>Submit a rules task</h4>
+			<h4>Submit the task message</h4>
 			<fieldset class="form-group">
-				<textarea ng-model="taskCtrl.task.rules" class="form-control" placeholder="Enter some rules following the format" title="Rules"></textarea>
-			</fieldset>
-			<fieldset class="form-group">
-				<textarea ng-model="taskCtrl.task.facts" class="form-control" placeholder="Enter some facts following the format" title="Facts"></textarea>
+				<textarea ng-model="taskCtrl.task.rules" class="form-control" placeholder="Enter the full message" title="Rules"></textarea>
 			</fieldset>
 			<fieldset class="form-group">
 				<input type="submit" class="btn btn-primary pull-right" value="Submit task" />
