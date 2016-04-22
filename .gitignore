@@ -3,5 +3,5 @@
 node_modules/*
 logs/*
 persistance/files/prolog/*
-procesoID
+reasonerPID
 npm-debug.log

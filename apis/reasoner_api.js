@@ -64,13 +64,22 @@ function prolog_reason(jsonR,callback){
       //the whole response has been recieved, so we just print it out here
       response.on('end', function () {
         strJSON = JSON.parse(str);
-        console.log('Aniadido ::: '+res.resource+' '+res.location+' '+ strJSON.value);
-        cback();
+        var extra_code = '\n';
+        extra_code += res.codename + '(' +  strJSON.value + ').\n';
+        console.log('Aniadido ::: '+res.resource+' '+res.location+' '+ extra_code);
+
+        var fs = require('fs');
+
+        fs.appendFile( savefile , extra_code, function(err) {
+          if(err) {
+            console.log(err);
+            callback('ERROR UPDATING FILE');
+          }else{
+            cback();
+          }
+        });
+
       });
-
-
-
-
     }).end();
     
   };
@@ -99,12 +108,13 @@ function prolog_reason(jsonR,callback){
       if(err) {
           console.log(err);
           callback('ERROR WRITING FILE');
+      }else{
+        console.log("The file was saved!");
+        //console.log('{ "list": '+JSON.stringify(jsonR.resources[0])+'}');
+        var list_res = jsonR.resources;
+        //console.log(list_res == []);
+        add_missing_resources(list_res, execute_prolog);
       }
-      console.log("The file was saved!");
-      //console.log('{ "list": '+JSON.stringify(jsonR.resources[0])+'}');
-      var list_res = jsonR.resources;
-      //console.log(list_res == []);
-      add_missing_resources(list_res, execute_prolog);
   });
 };
 
