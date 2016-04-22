@@ -43,8 +43,36 @@ function prolog_reason(jsonR,callback){
   };
 
   add_single_resource = function(res, cback){
-    console.log('Aniadido ::: '+res.resource+' '+res.location);
-    cback();
+    var aux1 = res.location.split(':');
+    var aux2 = aux1[1].split('/');
+
+    var http = require('http');
+    var options = {
+      host: aux1[0], // The URL
+      port: aux2[0],
+      path: '/'+aux2[1]
+    };
+
+    http.request(options, function(response){
+      var str = '';
+
+      //another chunk of data has been recieved, so append it to `str`
+      response.on('data', function (chunk) {
+        str += chunk;
+      });
+
+      //the whole response has been recieved, so we just print it out here
+      response.on('end', function () {
+        strJSON = JSON.parse(str);
+        console.log('Aniadido ::: '+res.resource+' '+res.location+' '+ strJSON.value);
+        cback();
+      });
+
+
+
+
+    }).end();
+    
   };
 
   add_missing_resources = function(list, cback){
@@ -62,8 +90,6 @@ function prolog_reason(jsonR,callback){
         add_missing_resources(list.slice(1),cback);
       });
 
-      //console.log('Aniadido ::: '+JSON.stringify(list[0]));
-      //add_missing_resources(list.slice(1),cback);
     }
   };
 
