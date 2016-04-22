@@ -42,16 +42,28 @@ function prolog_reason(jsonR,callback){
       });
   };
 
+  add_single_resource = function(res, cback){
+    console.log('Aniadido ::: '+res.resource+' '+res.location);
+    cback();
+  };
+
   add_missing_resources = function(list, cback){
     if (list == []){
       console.log('Aniadidos todos');
       cback();
     }else if (list.length == 1){
-      console.log('Aniadido ::: '+JSON.stringify(list[0]));
-      cback();
+      
+      add_single_resource(list[0],function(){
+        cback();
+        });
+
     }else {
-      console.log('Aniadido ::: '+JSON.stringify(list[0]));
-      add_missing_resources(list.slice(1),cback);
+      add_single_resource(list[0],function(){
+        add_missing_resources(list.slice(1),cback);
+      });
+
+      //console.log('Aniadido ::: '+JSON.stringify(list[0]));
+      //add_missing_resources(list.slice(1),cback);
     }
   };
 
