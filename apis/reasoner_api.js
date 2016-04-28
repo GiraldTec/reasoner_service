@@ -65,7 +65,7 @@ function prolog_reason(jsonR,callback){
       response.on('end', function () {
         strJSON = JSON.parse(str);
         var extra_code = '\n';
-        extra_code += res.codename + '(' +  strJSON.value + ').\n';
+        extra_code += res.codename + '(' +  strJSON.value + ').';
         console.log('Aniadido ::: '+res.resource+' '+res.location+' '+ extra_code);
 
         var fs = require('fs');
@@ -104,7 +104,7 @@ function prolog_reason(jsonR,callback){
 
   var fs = require('fs');
 
-  fs.writeFile( savefile , jsonR.code, function(err) {
+  fs.writeFile( savefile , jsonR.code+'\n', function(err) {
       if(err) {
           console.log(err);
           callback('ERROR WRITING FILE');

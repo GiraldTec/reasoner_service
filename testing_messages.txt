@@ -2,3 +2,22 @@
 
 { "language": "prolog" , "agentName" : "pepito" , "code" : "state(meeting):-\nnumber_people(X),\nX > 5,\nlight(on),!.\nstate(party):-\nnumber_people(X),\nX > 10,\nmusic(on),!.\nstate(empty1).\nstate(empty2).\nstate(empty3).\n\nnumber_people(6).\nlight(off).\nmusic(off).\n\nmain:-\nsetof((X,Y),(state(X),number_people(Y)),R),\nwrite(R)." , "resources" : [{"resource":"temperature", "location":"url1"}, {"resource":"people", "location":"url2"}, {"resource":"light", "location":"url3"}, {"resource":"music", "location":"url4"}]}
 
+
+{ "language": "prolog" , 
+"agentName" : "agent1" , 
+"code" : "room_activity(meeting):-\n\tnumber_people(X),\n\tX > 5,\n\tlight(on),!.\nroom_activity(party):-\n\tnumber_people(X),\n\tX > 10,\n\tmusic(on),!.\nroom_activity(unknown).\n\nmain:-\nsetof((X,Y),(room_activity(X),number_people(Y)),R),\nwrite(R).\n" , 
+"resources" : [
+{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/light"}, 
+{"resource":"music", "codename":"music", "location":"192.168.2.237:8080/music"}]}
+
+
+{ "language": "prolog" , 
+"agentName" : "agent2" , 
+"code" : "window_actuator(open):-\n\tnumber_people(X),\n\tX > 10,\n\tlight(on),\n\ttemperature(Y),\n\tY > 22,!.\nwindow_actuator(close):-\n\ttemperature(Y),\n\tY < 16,\n\tmusic(on),!.\nwindow_actuator(stay).\n\nmain:-\nsetof((X,Y),(window_actuator(X),number_people(Y)),R),\nwrite(R)." , 
+"resources" : [
+{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/lightOn"}, 
+{"resource":"temperature", "codename":"temperature", "location":"192.168.2.237:8080/temperature35"}, 
+{"resource":"music", "codename":"music", "location":"192.168.2.237:8080/musicOff"}]}
+
