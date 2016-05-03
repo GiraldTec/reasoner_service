@@ -2,6 +2,7 @@
 *.json
 node_modules/*
 logs/*
-persistance/files/prolog/*
+/persistance/files/prolog/*
+#!/persistance/files/prolog/
 reasonerPID
 npm-debug.log
