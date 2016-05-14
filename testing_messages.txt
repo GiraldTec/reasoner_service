@@ -7,10 +7,9 @@
 "agentName" : "agent1" , 
 "code" : "room_activity(meeting):-\n\tnumber_people(X),\n\tX > 5,\n\tlight(on),!.\nroom_activity(party):-\n\tnumber_people(X),\n\tX > 10,\n\tmusic(on),!.\nroom_activity(unknown).\n\nmain:-\nsetof((X,Y),(room_activity(X),number_people(Y)),R),\nwrite(R).\n" , 
 "resources" : [
-{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people"}, 
-{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/light"}, 
-{"resource":"music", "codename":"music", "location":"192.168.2.237:8080/music"}]}
-
+{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/lightOn"}, 
+{"resource":"music", "codename":"music", "location":"192.168.2.237:8080/musicOff"}]}
 
 { "language": "prolog" , 
 "agentName" : "agent2" , 
@@ -21,3 +20,9 @@
 {"resource":"temperature", "codename":"temperature", "location":"192.168.2.237:8080/temperature35"}, 
 {"resource":"music", "codename":"music", "location":"192.168.2.237:8080/musicOff"}]}
 
+{ "language": "prolog" , 
+"agentName" : "agent3" , 
+"code" : "room_situation(busy):-\n\tnumber_people(X),\n\tX > 1,\n\tlight(on),!.\nroom_situation(empty):-\n\tnumber_people(0),\n\tlight(off),!.\nroom_situation(suspicious):-\n\tnumber_people(X),\n\tX > 1,\n\tlight(off),!.\nroom_situation(wrong):-\n\tnumber_people(X),\n\tX < 1,\n\tlight(on),!.\n\n\nmain:-\nsetof((X,Y),(room_situation(X),number_people(Y)),R),\nwrite(R)." , 
+"resources" : [
+{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/lightOn"}]}
