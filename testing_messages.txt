@@ -1,28 +1,97 @@
-{ "language": "prolog" , "agentName" : "pepito" , "code" : "state(meeting):-\nnumber_people(X),\nX > 5,\nlight(on),!.\nstate(party):-\nnumber_people(X),\nX > 10,\nmusic(on),!.\nstate(empty1).\nstate(empty2).\nstate(empty3).\n\nnumber_people(6).\nlight(off).\nmusic(off).\n\nmain:-\nsetof((X,Y),(state(X),number_people(Y)),R),\nwrite(R)."}
-
-{ "language": "prolog" , "agentName" : "pepito" , "code" : "state(meeting):-\nnumber_people(X),\nX > 5,\nlight(on),!.\nstate(party):-\nnumber_people(X),\nX > 10,\nmusic(on),!.\nstate(empty1).\nstate(empty2).\nstate(empty3).\n\nnumber_people(6).\nlight(off).\nmusic(off).\n\nmain:-\nsetof((X,Y),(state(X),number_people(Y)),R),\nwrite(R)." , "resources" : [{"resource":"temperature", "location":"url1"}, {"resource":"people", "location":"url2"}, {"resource":"light", "location":"url3"}, {"resource":"music", "location":"url4"}]}
-
+%%%% TASK 1
 
 { "language": "prolog" , 
 "agentName" : "agent1" , 
-"code" : "room_activity(meeting):-\n\tnumber_people(X),\n\tX > 5,\n\tlight(on),!.\nroom_activity(party):-\n\tnumber_people(X),\n\tX > 10,\n\tmusic(on),!.\nroom_activity(unknown).\n\nmain:-\nsetof((X,Y),(room_activity(X),number_people(Y)),R),\nwrite(R).\n" , 
+"type" : "code",
+"code" : "room_activity(meeting):-\n\tnumber_people(X),\n\tX > 5,\n\tlight(on),!.\nroom_activity(party):-\n\tnumber_people(X),\n\tX > 10,\n\tmusic(on),!.\nroom_activity(unknown).\nmain:-\nsetof((X,Y),(room_activity(X),number_people(Y)),R),\nwrite(R).\n" , 
 "resources" : [
-{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people14"}, 
-{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/lightOn"}, 
-{"resource":"music", "codename":"music", "location":"192.168.2.237:8080/musicOff"}]}
+{"resource":"people", "codename":"number_people", "location":"192.168.2.155:3001/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.155:3001/lightOn"}, 
+{"resource":"music", "codename":"music", "location":"192.168.2.155:3001/musicOff"}]}
+
+{ "language": "prolog" , 
+"agentName" : "agent1" , 
+"type" : "code",
+"code" : "room_activity(meeting):-\n\tnumber_people(X),\n\tX > 5,\n\tlight(on),!.\nroom_activity(party):-\n\tnumber_people(X),\n\tX > 10,\n\tmusic(on),!.\nroom_activity(unknown).\nmain:-\nsetof((X,Y),(room_activity(X),number_people(Y)),R),\nwrite(R).\nmusic(off).\nlight(on).\nnumber_people(14).\n"
+}
+
+{ "language": "prolog" , 
+"agentName" : "agent1" , 
+"type" : "url",
+"code" : "192.168.2.155:3001/task1" , 
+"resources" : [
+{"resource":"people", "codename":"number_people", "location":"192.168.2.155:3001/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.155:3001/lightOn"}, 
+{"resource":"music", "codename":"music", "location":"192.168.2.155:3001/musicOff"}]}
+
+{ "language": "prolog" , 
+"agentName" : "agent1" , 
+"type" : "url",
+"code" : "192.168.2.155:3001/task1A"
+}
+
+
+%%%% TASK 2
 
 { "language": "prolog" , 
 "agentName" : "agent2" , 
-"code" : "window_actuator(open):-\n\tnumber_people(X),\n\tX > 10,\n\tlight(on),\n\ttemperature(Y),\n\tY > 22,!.\nwindow_actuator(close):-\n\ttemperature(Y),\n\tY < 16,\n\tmusic(on),!.\nwindow_actuator(stay).\n\nmain:-\nsetof((X,Y),(window_actuator(X),number_people(Y)),R),\nwrite(R)." , 
+"type" : "code",
+"code" : "window_actuator(open):-\n\tnumber_people(X),\n\tX > 10,\n\tlight(on),\n\ttemperature(Y),\n\tY > 22,!.\nwindow_actuator(close):-\n\ttemperature(Y),\n\tY < 16,\n\tmusic(on),!.\nwindow_actuator(stay).\nmain:-\nsetof((X,Y),(window_actuator(X),number_people(Y)),R),\nwrite(R)." , 
 "resources" : [
-{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people14"}, 
-{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/lightOn"}, 
-{"resource":"temperature", "codename":"temperature", "location":"192.168.2.237:8080/temperature35"}, 
-{"resource":"music", "codename":"music", "location":"192.168.2.237:8080/musicOff"}]}
+{"resource":"people", "codename":"number_people", "location":"192.168.2.155:3001/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.155:3001/lightOn"}, 
+{"resource":"temperature", "codename":"temperature", "location":"192.168.2.155:3001/temperature35"}, 
+{"resource":"music", "codename":"music", "location":"192.168.2.155:3001/musicOff"}]}
+
+{ "language": "prolog" , 
+"agentName" : "agent2" , 
+"type" : "code",
+"code" : "window_actuator(open):-\n\tnumber_people(X),\n\tX > 10,\n\tlight(on),\n\ttemperature(Y),\n\tY > 22,!.\nwindow_actuator(close):-\n\ttemperature(Y),\n\tY < 16,\n\tmusic(on),!.\nwindow_actuator(stay).\nmain:-\nsetof((X,Y),(window_actuator(X),number_people(Y)),R),\nwrite(R).\nmusic(on).\ntemperature(15).\nlight(off).\nnumber_people(14).\n"
+}
+
+{ "language": "prolog" , 
+"agentName" : "agent2" , 
+"type" : "url",
+"code" : "192.168.2.155:3001/task2" , 
+"resources" : [
+{"resource":"people", "codename":"number_people", "location":"192.168.2.155:3001/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.155:3001/lightOn"}, 
+{"resource":"temperature", "codename":"temperature", "location":"192.168.2.155:3001/temperature35"}, 
+{"resource":"music", "codename":"music", "location":"192.168.2.155:3001/musicOff"}]}
+
+{ "language": "prolog" , 
+"agentName" : "agent2" , 
+"type" : "url",
+"code" : "192.168.2.155:3001/task2A"
+}
+
+
+%%%% TASK 3
 
 { "language": "prolog" , 
 "agentName" : "agent3" , 
+"type" : "code",
 "code" : "room_situation(busy):-\n\tnumber_people(X),\n\tX > 1,\n\tlight(on),!.\nroom_situation(empty):-\n\tnumber_people(0),\n\tlight(off),!.\nroom_situation(suspicious):-\n\tnumber_people(X),\n\tX > 1,\n\tlight(off),!.\nroom_situation(wrong):-\n\tnumber_people(X),\n\tX < 1,\n\tlight(on),!.\n\n\nmain:-\nsetof((X,Y),(room_situation(X),number_people(Y)),R),\nwrite(R)." , 
 "resources" : [
-{"resource":"people", "codename":"number_people", "location":"192.168.2.237:8080/people14"}, 
-{"resource":"light", "codename":"light", "location":"192.168.2.237:8080/lightOn"}]}
+{"resource":"people", "codename":"number_people", "location":"192.168.2.155:3001/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.155:3001/lightOn"}]}
+
+{ "language": "prolog" , 
+"agentName" : "agent3" , 
+"type" : "code",
+"code" : "room_situation(busy):-\n\tnumber_people(X),\n\tX > 1,\n\tlight(on),!.\nroom_situation(empty):-\n\tnumber_people(0),\n\tlight(off),!.\nroom_situation(suspicious):-\n\tnumber_people(X),\n\tX > 1,\n\tlight(off),!.\nroom_situation(wrong):-\n\tnumber_people(X),\n\tX < 1,\n\tlight(on),!.\nmain:-\nsetof((X,Y),(room_situation(X),number_people(Y)),R),\nwrite(R).\nlight(on).\nnumber_people(14)."
+}
+
+{ "language": "prolog" , 
+"agentName" : "agent3" , 
+"type" : "url",
+"code" : "192.168.2.155:3001/task3" , 
+"resources" : [
+{"resource":"people", "codename":"number_people", "location":"192.168.2.155:3001/people14"}, 
+{"resource":"light", "codename":"light", "location":"192.168.2.155:3001/lightOn"}]}
+
+{ "language": "prolog" , 
+"agentName" : "agent3" , 
+"type" : "url",
+"code" : "192.168.2.155:3001/task3A"
+}
