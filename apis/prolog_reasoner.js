@@ -128,24 +128,15 @@
   };
 
   this.url_on_message = function(jsonRequest,callback1){
-    console.log('DENTRO');
+    
     console.log(jsonRequest);
+    console.log("ESA ES LA REQUEST");
+
     set_savefile_name(jsonRequest.agentName);
-    console.log(savefile);
-    console.log('DENTRO1punto5');
     callback = callback1;
 
-    console.log('DENTRO2');
-    console.log(jsonRequest.code);
     var aux1 = jsonRequest.code.split(':');
-    console.log(aux1);
     var aux2 = aux1[1].split('/');
-    console.log(aux2);
-
-    console.log('DENTRO3');
-    
-    
-
 
     var options = {
       host: aux1[0], // The URL
@@ -153,13 +144,12 @@
       path: '/'+aux2[1]
     };    
 
-
-    console.log('URLONMESAGEEEEEE');
     genericHTTPrequest(options,function(str) {
 
-      console.log('Obtenido fichero');
-      console.log(str);
       var strJSON = JSON.parse(str);
+
+      console.log(strJSON);
+      console.log("ESE FUE EL JSON QUE RECIBI");
 
       var fs = require('fs');
       fs.writeFile( savefile , strJSON.code+'\n', function(err) {
@@ -181,6 +171,43 @@
     });
   };
 
+  this.id_on_message = function(jsonRequest,callback1){
+    
+    set_savefile_name(jsonRequest.agentName);
+    callback = callback1;
+
+    var aux1 = jsonRequest.code.split(':');
+    var aux2 = aux1[1].split('/');
+
+    var options = {
+      host: aux1[0], // The URL
+      port: aux2[0],
+      path: '/'+aux2[1]
+    };    
+
+    genericHTTPrequest(options,function(str) {
+
+      var strJSON = JSON.parse(str);
+
+      var fs = require('fs');
+      fs.writeFile( savefile , strJSON.code+'\n', function(err) {
+          if(err) {
+              console.log(err);
+              callback('ERROR WRITING FILE');
+          }else{
+            console.log("The file was saved!");
+            if (jsonRequest.resources != undefined){
+              var list_res = jsonRequest.resources;
+              add_missing_resources(list_res, list_res.length-1, function(){
+                execute_prolog();
+              });
+            }else{
+              execute_prolog();
+            }
+          }
+      });
+    });
+  };
 
 
 

@@ -31,9 +31,9 @@ var xbee_api = require('xbee-api');
 
 
 function reason (request,callback){
-  console.log(request.message);
-	console.log('RAZONANDIOOO');
-  var json_req = JSON.parse(request.message);
+  //console.log(request.message);
+	//console.log('RAZONANDIOOO');
+  var json_req = JSON.parse(request);//.message);
   console.log('PARSEADOOO');
   console.log(json_req);
 
@@ -72,7 +72,7 @@ app.post('/reasoner', function (req, res) {
   response = function(answer){
   	res.status(200).send(answer);
   }
-  reason(req.body,response);
+  reason(req.body.message,response);
 });
 
 
@@ -145,6 +145,14 @@ serialport.on('data', function (data) {
 // All frames parsed by the XBee will be emitted here
 
 xbeeAPI.on("frame_object", function (frame) {
-    var datos = frame.data.toString();
-    console.log(">>", datos);
+  var datos = frame.data.toString();
+  console.log(">>", datos);
+  console.log(datos);
+  response = function(answer){
+    console.log(answer);
+  }
+  console.log(datos.length);
+  var json_datos = JSON.parse(datos);
+  console.log(json_datos);
+  reason(datos,response);
 });
