@@ -38,21 +38,30 @@ function reason (request,callback){
   console.log(json_req);
 
   response = function(answer){
-    callback({value: answer });
+    return callback({value: answer });
   }
+
+  var reasoner = null;
 
   if (json_req.language == 'prolog') {
     console.log('PROLOG');
     var PrologReasoner = require('./prolog_reasoner');
-    var reasoner = new PrologReasoner();
-    console.log('ENTRAMOS');
-    reasoner.url_on_message(json_req,response);
-  }else if (json_req.language == 'node-rules') {
-    console.log('NODE-RULES');
-    reasoner.prolog_reason(json_req,response);
+    reasoner = new PrologReasoner();
+    //var reasoner = new PrologReasoner();
+    //console.log('ENTRAMOS');
+    //reasoner.url_on_message(json_req,response);
   }else{
-    callback({value: 'LANGUAGE NOT SPECIFIED'});
+    return callback({value: 'LANGUAGE NOT SPECIFIED'});
   }
+
+  if (json_req.type == 'code') {
+    console.log('ENTRAMOS CODE');
+    reasoner.code_on_message(json_req,response);
+  }else if (json_req.type == 'url') {
+    console.log('ENTRAMOS URL');
+    reasoner.url_on_message(json_req,response);
+  }
+
 };
 
 // ------------------------------------------------------------------------
